@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
@@ -11,7 +12,10 @@ public class NewBehaviourScript : MonoBehaviour
     public float moveSpeed = 7f;
     public float jumpForce = 10f;
 
-    
+    public int Counter;
+    public TextMeshProUGUI ScorText;
+
+
 
     void Awake()
     {
@@ -41,6 +45,18 @@ public class NewBehaviourScript : MonoBehaviour
         if (Input.GetButtonDown("Jump")) 
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Coins")
+        {
+            Counter++;
+            Destroy(collision.gameObject);
+            ScorText.text = Counter.ToString() + "" + "$";
+            ;
+            Debug.Log(Counter);
         }
     }
 }
